@@ -13,7 +13,6 @@ app.listen(port, () => {
 
 const todoList = []; // Store tasks
 
-// Load tasks from a JSON file
 function loadTasks() {
   try {
     const data = fs.readFileSync("tasks.json", "utf8");
@@ -24,15 +23,14 @@ function loadTasks() {
   }
 }
 
-// Save tasks to a JSON file
 function saveTasks(tasks) {
   try {
     const tasksJSON = JSON.stringify(tasks);
     fs.writeFileSync("tasks.json", tasksJSON);
-    return true; // Success
+    return true;
   } catch (error) {
     console.error("Error saving tasks:", error);
-    return false; // Failure
+    return false;
   }
 }
 
@@ -51,7 +49,6 @@ app.post("/api/tasks", (req, res) => {
 
   todoList.push(task);
 
-  // Save the updated tasks to the JSON file
   if (saveTasks(todoList)) {
     res.status(201).json({ message: "Task added successfully", task });
   } else {
@@ -76,7 +73,6 @@ app.put("/api/tasks/:taskId", (req, res) => {
   todoList[taskIndex].title = title;
   todoList[taskIndex].description = description;
 
-  // Save the updated tasks to the JSON file
   if (saveTasks(todoList)) {
     res.json({
       message: "Task updated successfully",
@@ -97,7 +93,6 @@ app.delete("/api/tasks/:taskId", (req, res) => {
 
   todoList.splice(taskIndex, 1);
 
-  // Save the updated tasks to the JSON file
   if (saveTasks(todoList)) {
     res.json({ message: "Task deleted successfully" });
   } else {
