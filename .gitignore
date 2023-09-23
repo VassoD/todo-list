@@ -33,3 +33,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# server
+/server/dist
+/server/node_modules
+/server/server.ts
+/server/tasks.json
+
